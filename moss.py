@@ -1,10 +1,12 @@
 import time,random,datetime,os,sys
+import utilities as u
 
 print("Welcome to Moss")
 
 #PLAYER-------------------------------------------------------------------------
 class Player():
-    def __init__(self,health,maxhealth,xp,maxxp,lvl,df,atk,__flichance,__chance):
+    def __init__(self):
+        self.name = "Prisoner"
         self.health = 100
         self.maxhealth = 100
         self.xp = 0
@@ -12,22 +14,35 @@ class Player():
         self.lvl = 1
         self.df = 10
         self.atk = 1
+        self.equipped = ""
         self.__flichance = 10
         self.__chance = 95
 
-
-
+    def changeName(self):
+        while True:
+            newname = str(input("What is your name ? :"))
+            
+                confirm = input("Your name is {} ? \n 1.Yes \n 2.) No no it's ...".format(newname)).lower().strip(" ")
+                if confirm == "1":
+                    self.name = newname
+                    break
+                elif confirm == "2":
+                    pass
+                else:
+                    print("You only say 1 or 2 !!!!")
+            
     def levelUp(self):
         if self.xp >= self.maxxp:
             if self.__chance >= 50:
-                self.__chance -= self.chance//20
+                self.__chance -= self.__chance//20
             if self.__flichance <= 90:
-                self.__flichance += self.flichance//20
+                self.__flichance += self.__flichance//20
             self.maxxp*=2
             self.lvl += 1
             self.xp -= self.xp
-            print("LEVEL UP\nLvl:{} - MaxXp:{}").format(self.lvl,self.maxxp)
-player = Player
+            print("LEVEL UP\nLvl:{} - MaxXp:{}".format(self.lvl,self.maxxp))
+
+player = Player()
 #ENEMYS-------------------------------------------------------------------------
 class Enemy():
     def __init__(self,name,health,maxhealth,greward,xpreward,atk,chance,echance):
@@ -40,7 +55,7 @@ class Enemy():
         self.chance = chance
         self.echance = echance
 
-    def returnRandomEnemy(self):
+    def returnRandomEnemy():
         listOfEnemys = [goblin,murloc,orc]
         return random.choice(listOfEnemys)
 
@@ -76,42 +91,76 @@ class orc(Enemy):
     echance = 30
 #ITEMS--------------------------------------------------------------------------
 class Item():
-    def __init__(self,name,amount,__baseGath,price,val):
+    def __init__(self,name,amount,baseeff,price):
         self.name = name
         self.amount = amount
         self.price = price
-        self.__baseGath = __bathGath
-
-    def returnBaseGath(self):
-        return __baseGath
+        self.baseeff
 
 
 class wood(Item):
     name = "wood"
     amount = 0
     price = 10
+    baseeff = 10
 
 class stone(Item):
     name = "stone"
     amount = 0
     price = 20
+    baseeff = 15
 
 class metal(Item):
     name = "metal"
     amount = 0
     price = 30
+    baseeff = 8
 
 class gold(Item):
     name = "gold"
     amount = 0
     price = 1
+    baseeff = 0
 
 #TOOLS--------------------------------------------------------------------------
 class Tool():
-    def __init__(self,name,eff,price):
+    def __init__(self,name,eff,price,time):
         self.name = name
         self.eff = eff
         self.price = price
+        self.time = time
+
+class hammer(Tool):
+    name = "Hammer"
+    eff = 1
+    price = 1
+    time = 2
+
+class stoneMattock(Tool):
+    name = "Stone Mattock"
+    eff = 2.5
+    price = 300
+    time = 1.5
+
+class rustyMattock(Tool):
+    name = "Rusty Mattock"
+    eff = 3
+    price = 450
+    time = 1.25
+    
+
+class metalMattock(Tool):
+    name = "Metal Mattock"
+    eff = 4
+    price = 600
+    time = 1
+
+class magicMattock(Tool):
+    name = "Magic Mattock"
+    eff = 10
+    price = 20000
+    time = 0.1
+
 
 #WEAPONS------------------------------------------------------------------------
 class Weapon():
@@ -152,7 +201,7 @@ class mastersword(Weapon):
     price = 4000
 
 class diabolus(Weapon):
-    name = diabolus
+    name = "diabolus"
     atk = 55
     df = 32
     price = 6000
@@ -164,6 +213,7 @@ class Inventory():
         self.weapons = {}
         self.tools = {}
     #eg inventory.add_item(Item('Sword', 5, 1, 2))
+    # inventory.addTool()
     def addTool(self,item):
         self.tools[item.name] = item
 
@@ -202,4 +252,4 @@ class Inventory():
             print("\t".join([str(x)for x in [item.name,item.atk,item.df,item.price]]))
 
 
-
+u.hello()
