@@ -5,7 +5,10 @@ class Item():
     amount = 0
     price = 0
     baseeff  = 0 
-
+    
+    def inspect(self):
+        val = self.amount*self.price
+        print("\n================\n{}\nYou have : {}\nValue{}".format(self.name,self.amount,str(val)))
 
 class wood(Item):
    
@@ -40,6 +43,28 @@ class Tool():
     eff = 0
     price = 0
     time = 10
+
+    def farm(self):
+        if c.player.location != "Wilderness":
+            print("You can not farm for materials in your current location")
+        else:
+            while True:
+                command = input("What do you want to farm?\n1.)Wood\n2.)Stone\n>>").strip(" ")
+                if command == "1":
+                    print("You travel to a nearby forest and use your {} to chop down some trees\nChopping...".format(self.name))
+                    time.sleep(self.time)
+                    
+                elif command == "2":
+                    print("You travel to a nearby mountain and use your {} to dig into the mountain\nDigging...".format.self.name)
+                    time.sleep(self.time)
+
+                else:
+                    print("Invalid Command")
+
+    def inspect(self):
+        print("\n================\n{}\nEfficiency:{}".format(self.name,self.eff))
+        command= input("1.)")
+
 
 class hammer(Tool):
     name = "Hammer"

@@ -20,6 +20,7 @@ class Player():
         self.flichance = 10
         self.chance = 95
         self.playedBefore = False
+        self.location = "Wilderness"
 
     def changeName(self):
         f = True
@@ -27,7 +28,8 @@ class Player():
             newname = str(input("What is your name ? :"))
             while True:
                 confirm = input("Your name is {} ? \n 1.Yes \n 2.) No no it's ...\n>>".format(newname)).lower().strip(" ")
-                if confirm == "1":                    self.name = newname
+                if confirm == "1":                    
+                    self.name = newname
                     f = False
                     break
                 elif confirm == "2":

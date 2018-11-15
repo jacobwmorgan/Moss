@@ -17,12 +17,10 @@ class Save():
     def checkSaveDir():
         if os.path.exists("saves") == False:
             print("save directory does not exist\n")
-            makeDir()
+            print("making save directory...\n")
+            os.mkdir("saves")
         else:
             print("\nSave dir ☑\n")
-    def makeDir():
-        print("making save directory...\n")
-        os.mkdir("saves")
     def load():
         if os.listdir("saves") == []:
             print("There are no save files")
