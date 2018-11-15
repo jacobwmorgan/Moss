@@ -23,11 +23,11 @@ def titleScreen():
         
 def game():
     #Doesnt work on repl and my schools stupid and wont let us use python outside the computer room :)
-    #if c.player.playedBefore == False:
-       # u.Story.start()
+    if c.player.playedBefore == False:
+        u.Story.start()
     while True:
         c.player.levelUp()
-        print("\n==============================\n{}\nLvl:{}\nHp:{}\nLocation:{}\n==============================".format(c.player.name,c.player.lvl,c.player.health,c.player.location))
-        command = input("1.)Explore\n2.)Bag\n3.)Quests\n>>")
-
+        c.player.playerQuickUi()
+        command = input("1.)Explore\n2.)Bag\n3.)Quests\nb.)Exit\n>>")
+        
 titleScreen()

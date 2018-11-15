@@ -15,8 +15,8 @@ class Player():
         self.lvl = 1
         self.df = 10
         self.atk = 1
-        self.equippedWeapon = t.fists()
-        self.equippedTool = t.hammer()
+        self.equippedWeapon = ""
+        self.equippedTool = ""
         self.flichance = 10
         self.chance = 95
         self.playedBefore = False
@@ -36,7 +36,9 @@ class Player():
                     break
                 else:
                     print("You only say 1 or 2 !!!!")
-            
+    def playerQuickUi(self):
+        print("\n==============================\n{}\nLvl:{}\nHp:{}\nLocation:{}\n==============================".format(self.name,self.lvl,self.health,self.location))
+     
     def levelUp(self):
         if self.xp >= self.maxxp:
             if self.chance >= 50:

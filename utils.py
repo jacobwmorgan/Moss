@@ -12,6 +12,16 @@ def loading():
 def checkString(s):
     isString = isinstance(s,str)
     return isString
+#doesnt work and i have no idea how to do it 
+def xpBar(x,y):
+    z = x//y
+    z * 10
+    string = (" " + "#" * z)
+    print(string)
+
+
+
+    
 
 class Save():
     def checkSaveDir():

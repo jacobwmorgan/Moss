@@ -1,21 +1,31 @@
+import time,random,datetime,os,sys
+import utils as u
+import chars as c
+
 ###Items and stuff
 #ITEMS--------------------------------------------------------------------------
 class Item():
-    name = ""
-    amount = 0
-    price = 0
-    baseeff  = 0 
+    def __init__(self):
+        self.name = ""
+        self.amount = 0
+        self.price = 0
+        self.baseeff  = 0 
     
     def inspect(self):
         val = self.amount*self.price
         print("\n================\n{}\nYou have : {}\nValue{}".format(self.name,self.amount,str(val)))
 
 class wood(Item):
-   
-    name = "wood"
-    amount = 0
-    price = 10
-    baseeff = 10
+    def __init__(self):
+        self.name = "wood"
+        self.amount = 0
+        self.price = 10
+        self.baseeff  = 10
+
+##    name = "wood"
+##    amount = 0
+##    price = 10
+##    baseeff = 10
 
 class stone(Item):
     name = "stone"
@@ -39,7 +49,7 @@ class gold(Item):
 
 #TOOLS--------------------------------------------------------------------------
 class Tool():
-    name = ""
+    name = "Tool"
     eff = 0
     price = 0
     time = 10
@@ -51,19 +61,32 @@ class Tool():
             while True:
                 command = input("What do you want to farm?\n1.)Wood\n2.)Stone\n>>").strip(" ")
                 if command == "1":
-                    print("You travel to a nearby forest and use your {} to chop down some trees\nChopping...".format(self.name))
-                    time.sleep(self.time)
+                    print("You travel to a nearby forest and use your {} to chop down some trees\nChopping...".format(name))
+                    time.sleep(time)
                     
                 elif command == "2":
-                    print("You travel to a nearby mountain and use your {} to dig into the mountain\nDigging...".format.self.name)
-                    time.sleep(self.time)
+                    print("You travel to a nearby mountain and use your {} to dig into the mountain\nDigging...".format(name))
+                    time.sleep(time)
 
                 else:
                     print("Invalid Command")
 
     def inspect(self):
-        print("\n================\n{}\nEfficiency:{}".format(self.name,self.eff))
-        command= input("1.)")
+        print("\n================\n{}\nEfficiency:{}\n================".format(self.name,self.eff))
+
+        while True:
+            if c.player.equippedTool ==self:
+                print("=EQUIPPED=")
+            command= input("1.)Equip\nb.)Back\n>>").lower().strip(" <X>")
+            if command =="1":
+                if c.player.equippedTool == self:
+                    print("This item is already equipped")
+                c.player.equippedTool = self
+                print("Equipped:{}".format(c.player.equippedTool.name))
+            elif command == "b":
+                break
+            else:
+                print("Invalid Command")
 
 
 class hammer(Tool):
@@ -103,92 +126,107 @@ class magicMattock(Tool):
 class Weapon():
     name = ""
     atk = 0
-    df = 2
+    price = 0
+    def inspect(self):
+        print("\n================\n{}\nAttack:{}\nPrice:{}\n================".format(self.name,self.atk,self.price))
+
+        while True:
+            if c.player.equippedWeapon ==self:
+                print("=EQUIPPED=")
+            command= input("1.)Equip\nb.)Back\n>>").lower().strip(" <X>")
+            if command =="1":
+                if c.player.equippedWeapon == self:
+                    print("This item is already equipped")
+                c.player.equippedWeapon = self
+                print("Equipped:{}".format(c.player.equippedWeapon.name))
+            elif command == "b":
+                break
+            else:
+                print("Invalid Command")
+
+
+class rock(Weapon):
+    name = "Rock"
+    atk  = 5
     price = 0
 
-class fists(Weapon):
-    name = "Hands"
-    atk  = 5
-    df = 0
-    df = 1
 
 class stonedagger(Weapon):
     name = "stonedagger"
     atk = 8
-    df = 2
     price = 200
 
 class rustysword(Weapon):
     name = "rusty sword"
     atk = 15
-    df = 4
     price = 400
 
 class metalsword(Weapon):
     name ="metalsword"
     atk = 20
-    df = 8
     price = 800
 
 class steelsword(Weapon):
     name = "steelsword"
     atk = 25
-    df = 10
     price = 1000
 
 class mastersword(Weapon):
     name = "mastersword"
     atk = 40
-    df = 16
     price = 4000
 
 class diabolus(Weapon):
     name = "diabolus"
     atk = 55
-    df = 32
     price = 6000
 
 #-------------------------------------------------------------------------------
 class Inventory():
-    def __init__(self):
-        self.items = {}
-        self.weapons = {}
-        self.tools = {}
+    bag = []
     #eg inventory.add_item(Item('Sword', 5, 1, 2))
     # inventory.addTool()
-    def addTool(self,item):
-        self.tools[item.name] = item
+    def add(self,item):
+        self.bag.append(item)
+        print("You obtained a {}".format(item.name))
+    def bagMenu(self):
+        if self.bag != []:
+            print("W - Up , S - Down , Type Confirm - confirm")
+            selectedNumber = 0
+            while True:
+                selectedItem = self.bag[selectedNumber]
+                oldSelectedItemName = selectedItem.name
+                selectedItem.name = selectedItem.name + "<X>"
+                for i in self.bag:
+                    print("\n"+i.name)
+##                    sys.stdout.write("\r"+i.name)
+##                    sys.stdout.flush()
+                command = input(">>").lower().strip(" ")
+                if command == "w":
+                    if selectedNumber == 0:
+                        print("Can not go any higher")
+                    else:
+                        selectedNumber -= 1
+                elif command == "s":
+                    if selectedNumber == len(self.bag)-1:
+                        print("Can not go any lower")
+                    else:
+                        selectedNumber += 1
+                elif command == "confirm":
+                    selectedItem.name = oldSelectedItemName
+                    selectedItem.inspect(selectedItem)
+                    selectedItem.name = selectedItem.name + "<X>"
+                else:
+                    print("Invalid command")
+                selectedItem.name = oldSelectedItemName
+                print(str(selectedNumber))
+                print(str(len(self.bag)-1))
+                
+        else:
+            print("The bag is empty")
 
-    def returnTools(self):
-        print("\t".join(["Name","Efficency","Val"]))
-        for item in self.tools.values():
-            print("\t",join([str(x)for x in [item.name,item.eff,item.price]]))
 
-    def addItem(self, item):
-        self.items[item.name] = item
+Inventory.add(Inventory,rock)
+Inventory.add(Inventory,hammer)
 
-    def returnItems(self):
-        print("\t".join(["Name","Amount","Val"]))
-        for item in self.items.values():
-            print("\t".join([str(x)for x in [item.name,item.amount,item.price]]))
-
-    def addWeapon(self,item):
-        self.weapons[item.name] = item
-
-    def returnWeapons(self):
-        print("\t".join(["Name","Atk","Df","Val"]))
-        for item in self.weapons.values():
-            print("\t".join([str(x)for x in [item.name,item.atk,item.df,item.price]]))
-
-    def returnBag(self):
-        print("\t".join(["Name","Amount","Val"]))
-        for item in self.items.values():
-            print("\t".join([str(x)for x in [item.name,item.amount,item.price]]))
-
-        print("\t".join(["Name","Efficency","Val"]))
-        for item in self.tools.values():
-            print("\t",join([str(x)for x in [item.name,item.eff,item.price]]))
-
-        print("\t".join(["Name","Atk","Df","Val"]))
-        for item in self.weapons.values():
-            print("\t".join([str(x)for x in [item.name,item.atk,item.df,item.price]]))
+        
