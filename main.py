@@ -28,6 +28,17 @@ def game():
     while True:
         c.player.levelUp()
         c.player.playerQuickUi()
-        command = input("1.)Explore\n2.)Bag\n3.)Quests\nb.)Exit\n>>")
+        command = input("1.)Explore\n2.)Bag\n3.)Quests\nb.)Exit\n>>").lower().strip(" ")
+        if command == "1":
+            pass
+        elif command == "2":
+            t.Inventory.bagMenu(t.Inventory)
+        elif command == "3":
+            pass
+        elif command == "b":
+            sys.exit()
+        else:
+            print("Invalid command")
+            
         
 titleScreen()

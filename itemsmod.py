@@ -191,9 +191,10 @@ class Inventory():
         print("You obtained a {}".format(item.name))
     def bagMenu(self):
         if self.bag != []:
-            print("W - Up , S - Down , Type Confirm - confirm")
+            
             selectedNumber = 0
             while True:
+                print("==== W - Up , S - Down , Press Enter to Confirm ====")
                 selectedItem = self.bag[selectedNumber]
                 oldSelectedItemName = selectedItem.name
                 selectedItem.name = selectedItem.name + "<X>"
@@ -212,10 +213,12 @@ class Inventory():
                         print("Can not go any lower")
                     else:
                         selectedNumber += 1
-                elif command == "confirm":
+                elif command == "":
                     selectedItem.name = oldSelectedItemName
                     selectedItem.inspect(selectedItem)
                     selectedItem.name = selectedItem.name + "<X>"
+                elif command == "b":
+                    break
                 else:
                     print("Invalid command")
                 selectedItem.name = oldSelectedItemName
@@ -228,5 +231,7 @@ class Inventory():
 
 Inventory.add(Inventory,rock)
 Inventory.add(Inventory,hammer)
+
+
 
         
