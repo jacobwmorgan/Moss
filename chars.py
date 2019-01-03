@@ -21,6 +21,7 @@ class Player():
         self.chance = 95
         self.playedBefore = False
         self.location = "Wilderness"
+        self.listOfQuests = []
 
     def changeName(self):
         f = True
@@ -97,3 +98,15 @@ class orc(Enemy):
     atk = 8
     chance = 30
     echance = 30
+
+
+class Quest():
+    name = ""
+    reward = ""
+    xpReward = 0
+    goldReward = 0
+    completed = False
+    def getStory():
+        pass
+    def inspect():
+        pass

@@ -3,11 +3,12 @@ import utils as u
 import itemsmod as t
 import chars as c
 
+u.Quests.checkQuestDir()
 u.Save.checkSaveDir()
 
 def titleScreen():
     try:
-        print("      Welcome to Moss\n         1 Play 1\n         2 Load 2\n         3 Exit 3")
+        print("         =Moss=\n         1 Play 1\n         2 Load 2\n         3 Exit 3\n\n  A game by Jacob Morgan")
         while True:
             command = input(">>").strip(" ")
             if command == "1":
@@ -24,7 +25,8 @@ def titleScreen():
 def game():
     #Doesnt work on repl and my schools stupid and wont let us use python outside the computer room :)
     if c.player.playedBefore == False:
-        u.Story.start()
+        #u.Story.start()
+        print("Place holder,//Story will be added later")
     while True:
         c.player.levelUp()
         c.player.playerQuickUi()

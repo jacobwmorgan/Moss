@@ -2,6 +2,15 @@ import time,random,datetime,os,sys
 import itemsmod as t
 import chars as c
 
+
+def openFile(dr):
+    li = []
+    with open(di +".txt",r) as data:
+        for i in data.readlines():
+            li.append(i)
+    return li
+
+
 def loading():
     for x in range (0,3):  
         b = ("Loading" + "." * x)
@@ -19,7 +28,56 @@ def xpBar(x,y):
     string = (" " + "#" * z)
     print(string)
 
+class Quests():
+    def checkQuestDir():
+        if os.path.exists("quests") == False:
+            print("Quests could not be found \n Please reinstall game and try again \n If this problem reacures please contact the dev")
+            exit()
+        else:
+            print("\nQuest dir ☑\n")
 
+    def addQuest(quest):
+        li = c.player.listOfQuests
+        if quest not in li:
+            li.append(quest)
+        else:
+            print("You already have this quest in your quest book")
+
+    def listQuests():
+        print("==== Quest Book ====")
+        li = c.player.listOfQuests
+        if  li != []:
+            selectedNumber = 0
+            while True:
+                print("==== W - Up , S - Down , B - Back , Press Enter to Confirm ====")
+                selected = li[selectedNumber]
+                oldSelectedName = selected.name
+                selected.name = selected.name + "<X>"
+                for i in li:
+                    print("\n"+i.name)
+                command = input(">>").lower().strip(" ")
+                if command == "w":
+                    if selectedNumber == 0:
+                        print("Can not go any higher")
+                    else:
+                        selectedNumber -= 1
+                elif command == "s":
+                    if selectedNumber == len(li)-1:
+                        print("Can not go any lower")
+                    else:
+                        selectedNumber +=1
+                elif command == "":
+                    selected.name = oldSelectedName
+                    selected.view(selected)
+                    selected.name = selected.name + "<X>"
+                elif command == "b":
+                    break
+                else:
+                    print("Invalid Command")
+                selectedItem.name = oldSelectedName
+                   
+        else:
+            print("You have no quests")
 
     
 

@@ -16,11 +16,10 @@ class Item():
         print("\n================\n{}\nYou have : {}\nValue{}".format(self.name,self.amount,str(val)))
 
 class wood(Item):
-    def __init__(self):
-        self.name = "wood"
-        self.amount = 0
-        self.price = 10
-        self.baseeff  = 10
+        name = "wood"
+        amount = 0
+        price = 10
+        baseeff  = 10
 
 ##    name = "wood"
 ##    amount = 0
@@ -194,7 +193,7 @@ class Inventory():
             
             selectedNumber = 0
             while True:
-                print("==== W - Up , S - Down , Press Enter to Confirm ====")
+                print("==== W - Up , S - Down , B - Back , Press Enter to Confirm ====")
                 selectedItem = self.bag[selectedNumber]
                 oldSelectedItemName = selectedItem.name
                 selectedItem.name = selectedItem.name + "<X>"
